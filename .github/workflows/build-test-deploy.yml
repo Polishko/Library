@@ -2,29 +2,29 @@ name: Build, test and deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v4
-    - name: Use Node.js 21.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: 21.x
-        cache: 'npm'
-    - name: Install NPM modules
-      run: npm install
-    - name: Start the Back-End
-      run: npm run start-be &
-    - name: Start the Front-End
-      run: npm run start-fe &
-    - name: Execute the UI tests
-      run: npm run test:ui
-    
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      - name: Use Node.js 21.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21.x
+          cache: "npm"
+      - name: Install NPM modules
+        run: npm install
+      - name: Start the Back-End
+        run: npm run start-be &
+      - name: Start the Front-End
+        run: npm run start-fe &
+      - name: Install Browsers
+        run: npx playwright install
+      - name: Execute the UI tests
+        run: npm run test:ui
